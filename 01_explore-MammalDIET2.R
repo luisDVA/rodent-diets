@@ -1,5 +1,4 @@
 # MammalDIET 1&2 Exploratory Data Analysis
-
 # Load packages -----------------------------------------------------------
 library(dplyr) # [CRAN]
 library(readr) # [github::tidyverse/readr]
@@ -66,6 +65,10 @@ mean(rodguildMemberships$nguilds)
 
 # Plot trophic levels -----------------------------------------------------
 # font choice is optional
+
+# add unknown
+rodTrophext <- rodTroph %>%  tibble::add_row(trophic_level="No data",n=1075)
+
 levelsPtm <-
   rodTroph %>%
   mutate(vals = round(n / 1198 * 100, 0)) %>%
@@ -113,3 +116,4 @@ guildsPtm
 
 # Make multipanel figure --------------------------------------------------
 plot_grid(levelsPtm, guildsPtm, align = "h")
+# ggsave("out/figure1.png", width = 6.2, height = 4, units = "in", dpi = 300)
